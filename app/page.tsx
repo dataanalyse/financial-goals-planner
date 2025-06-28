@@ -15,7 +15,12 @@ const FinancialPlanningApp = () => {
   const [timeHorizon, setTimeHorizon] = useState(10);
   const [stockAllocation, setStockAllocation] = useState(70);
   const [bondAllocation, setBondAllocation] = useState(30);
-  const [projectionData, setProjectionData] = useState([]);
+  const [projectionData, setProjectionData] = useState<Array<{
+    year: string;
+    balance: number;
+    contributions: number;
+    growth: number;
+  }>>([]);
   const [totalProjected, setTotalProjected] = useState(0);
   const [monthsToGoal, setMonthsToGoal] = useState(0);
 
@@ -593,8 +598,16 @@ const FinancialPlanningApp = () => {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex items-center">
-              <DollarSign className="h-8 w-8 text-blue-600 mr-2" />
-              <span className="text-xl font-bold text-gray-900">FinancePro</span>
+              <div className="relative mr-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center shadow-lg">
+                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2L2 7v10c0 5.55 3.84 9.739 9 11 5.16-1.261 9-5.45 9-11V7l-10-5z"/>
+                    <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+              </div>
+              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">PlanFinanceToday</span>
             </div>
 
             {/* Desktop Navigation */}
@@ -688,7 +701,7 @@ const FinancialPlanningApp = () => {
         {/* Footer */}
         <div className="mt-12 text-center text-gray-500 text-sm">
           <p>This tool provides estimates based on historical market averages. Past performance doesn't guarantee future results.</p>
-          <p className="mt-2">© 2025 FinancePro. Built with ❤️ for your financial success.</p>
+          <p className="mt-2">© 2025 PlanFinanceToday. Built with ❤️ for your financial success.</p>
         </div>
       </div>
     </div>
