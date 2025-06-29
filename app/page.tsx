@@ -37,7 +37,12 @@ const FinancialPlanningApp = () => {
   const [currentEmergencyFund, setCurrentEmergencyFund] = useState(5000);
   const [monthlyEmergencySavings, setMonthlyEmergencySavings] = useState(300);
 
-  const planningTabs = [
+  const planningTabs: Array<{
+    id: string;
+    name: string;
+    icon: React.ComponentType<any>;
+    color: string;
+  }> = [
     { id: 'retirement', name: 'Retirement Goals', icon: Target, color: 'blue' },
     { id: 'home', name: 'Home Buying', icon: Home, color: 'green' },
     { id: 'emergency', name: 'Emergency Fund', icon: PiggyBank, color: 'purple' },
@@ -95,7 +100,7 @@ const FinancialPlanningApp = () => {
     { name: 'Bonds', value: bondAllocation, color: '#3B82F6' }
   ];
 
-  const formatCurrency = (value) => {
+  const formatCurrency = (value: number): string => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
@@ -104,7 +109,7 @@ const FinancialPlanningApp = () => {
     }).format(value);
   };
 
-  const formatYears = (months) => {
+  const formatYears = (months: number): string => {
     const years = Math.floor(months / 12);
     const remainingMonths = months % 12;
     if (years === 0) return `${remainingMonths} months`;
@@ -112,7 +117,7 @@ const FinancialPlanningApp = () => {
     return `${years} years, ${remainingMonths} months`;
   };
 
-  const getTabColor = (tabId) => {
+  const getTabColor = (tabId: string): string => {
     const tab = planningTabs.find(t => t.id === tabId);
     return tab?.color || 'blue';
   };
@@ -248,7 +253,7 @@ const FinancialPlanningApp = () => {
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip formatter={(value) => `${value}%`} />
+                <Tooltip formatter={(value: any) => `${value}%`} />
               </PieChart>
             </ResponsiveContainer>
             <div className="flex justify-center space-x-4 mt-2">
@@ -319,8 +324,8 @@ const FinancialPlanningApp = () => {
                 label={{ value: 'Amount ($)', angle: -90, position: 'insideLeft' }}
               />
               <Tooltip 
-                formatter={(value, name) => [formatCurrency(value), name]}
-                labelFormatter={(label) => `Year ${label}`}
+                formatter={(value: any, name: string) => [formatCurrency(Number(value)), name]}
+                labelFormatter={(label: string) => `Year ${label}`}
               />
               <Line 
                 type="monotone" 
@@ -558,7 +563,7 @@ const FinancialPlanningApp = () => {
     );
   };
 
-  const renderComingSoon = (title) => (
+  const renderComingSoon = (title: string) => (
     <div className="text-center py-16">
       <div className="bg-white rounded-xl shadow-lg p-8 max-w-md mx-auto">
         <h2 className="text-2xl font-semibold text-gray-900 mb-4">{title}</h2>
