@@ -2,13 +2,50 @@
 
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { DollarSign, Target, TrendingUp, Calendar, Home, PiggyBank, GraduationCap, Car, Heart, Menu, X } from 'lucide-react';
+import { DollarSign, Target, TrendingUp, Calendar, Home, PiggyBank, GraduationCap, Car, Heart, Menu, X, BookOpen, Play, Check, Trophy, Star, ArrowRight, Award, ChevronRight, Users } from 'lucide-react';
+import Week1Component from './components/education/Week1Component'; // You'll need to create this import
+import Week2Component from './components/education/Week2Component';
+import Week3Component from './components/education/Week3Component';
+import Week4Component from './components/education/Week4Component';
+import Week5Component from './components/education/Week5Component';
+import Week6Component from './components/education/Week6Component';
+import Week7Component from './components/education/Week7Component';
+import Week8Component from './components/education/Week8Component';
+
 
 const FinancialPlanningApp = () => {
   const [activeTab, setActiveTab] = useState('retirement');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Retirement Planning State
+  // Kids Education State
+const [currentWeek, setCurrentWeek] = useState<number | null>(null);
+useEffect(() => {
+  const completedWeeks = JSON.parse(localStorage.getItem('completedWeeks') || '[]');
+  if (completedWeeks.includes('week8')) {
+    setCurrentWeek(9);
+  }  
+    else if (completedWeeks.includes('week7')) {
+    setCurrentWeek(8);
+  } else if (completedWeeks.includes('week6')) {
+    setCurrentWeek(7);
+  } else if (completedWeeks.includes('week5')) {
+    setCurrentWeek(6);
+  } else if (completedWeeks.includes('week4')) {
+    setCurrentWeek(5);
+  } else if (completedWeeks.includes('week3')) {
+    setCurrentWeek(4);
+  } else if (completedWeeks.includes('week2')) {
+    setCurrentWeek(3);
+  } else if (completedWeeks.includes('week1')) {
+    setCurrentWeek(2);
+  }
+}, []);
+
+
+  const [completedWeeks, setCompletedWeeks] = useState<number[]>([]);
+  const [earnedBadges, setEarnedBadges] = useState<{[key: number]: string}>({});
+
+  // Retirement Planning State (keeping existing)
   const [goalAmount, setGoalAmount] = useState(100000);
   const [currentSavings, setCurrentSavings] = useState(10000);
   const [monthlyContribution, setMonthlyContribution] = useState(1000);
@@ -46,8 +83,102 @@ const FinancialPlanningApp = () => {
     { id: 'retirement', name: 'Retirement Goals', icon: Target, color: 'blue' },
     { id: 'home', name: 'Home Buying', icon: Home, color: 'green' },
     { id: 'emergency', name: 'Emergency Fund', icon: PiggyBank, color: 'purple' },
-    { id: 'education', name: 'Education', icon: GraduationCap, color: 'orange' },
+    { id: 'kids-education', name: 'Kids Financial Course', icon: BookOpen, color: 'orange' },
     { id: 'vacation', name: 'Vacation Fund', icon: Car, color: 'pink' }
+  ];
+
+  // Kids Education Data
+  const educationWeeks = [
+    {
+      week: 1,
+      title: "What is Money?",
+      description: "Understand what money is, why we use it, and how it has changed over time",
+      objective: "Learn the history of money from bartering to digital payments",
+      badge: "💰 Money Explorer",
+      estimatedTime: "15-20 minutes",
+      difficulty: "Beginner"
+    },
+    {
+      week: 2,
+      title: "How People Earn Money",
+      description: "Discover different ways people make money and start earning yourself",
+      objective: "Explore jobs, entrepreneurship, and teen-friendly income sources",
+      badge: "💼 Income Detective",
+      estimatedTime: "20-25 minutes",
+      difficulty: "Beginner"
+    },
+    {
+      week: 3,
+      title: "Needs vs Wants",
+      description: "Learn to tell the difference between what you need and what you want",
+      objective: "Master smart spending decisions and priority setting",
+      badge: "🎯 Smart Shopper",
+      estimatedTime: "15-20 minutes",
+      difficulty: "Beginner"
+    },
+    {
+      week: 4,
+      title: "Making a Budget",
+      description: "Create your first budget and learn to track your money",
+      objective: "Build a personal budget and understand money flow",
+      badge: "📊 Budget Boss",
+      estimatedTime: "25-30 minutes",
+      difficulty: "Intermediate"
+    },
+    {
+      week: 5,
+      title: "The Magic of Saving",
+      description: "Discover why saving money is like having superpowers",
+      objective: "Learn saving strategies and set achievable goals",
+      badge: "🦸 Savings Hero",
+      estimatedTime: "20-25 minutes",
+      difficulty: "Intermediate"
+    },
+    {
+      week: 6,
+      title: "Understanding Interest",
+      description: "Learn how money can grow over time through compound interest",
+      objective: "Understand simple vs compound interest with real examples",
+      badge: "🌱 Growth Guru",
+      estimatedTime: "25-30 minutes",
+      difficulty: "Intermediate"
+    },
+    {
+      week: 7,
+      title: "Credit and Debt Basics",
+      description: "Learn about borrowing money and using credit responsibly",
+      objective: "Understand credit scores, loans, and avoiding debt traps",
+      badge: "🛡️ Credit Guardian",
+      estimatedTime: "25-30 minutes",
+      difficulty: "Advanced"
+    },
+    {
+      week: 8,
+      title: "Investment Fundamentals",
+      description: "Discover how to make your money work for you through investing",
+      objective: "Learn about stocks, bonds, and long-term wealth building",
+      badge: "📈 Investment Explorer",
+      estimatedTime: "30-35 minutes",
+      difficulty: "Advanced"
+    },
+    {
+      week: 9,
+      title: "Financial Goals & Planning",
+      description: "Set financial goals and create plans to achieve them",
+      objective: "Create SMART financial goals and develop action plans",
+      badge: "🎯 Goal Getter",
+      estimatedTime: "25-30 minutes",
+      difficulty: "Advanced"
+    },
+    {
+      week: 10,
+      title: "Money in the Digital Age",
+      description: "Navigate digital banking, apps, and online financial tools safely",
+      objective: "Master digital financial literacy and online safety",
+      badge: "🚀 Digital Finance Master",
+      estimatedTime: "30-35 minutes",
+      difficulty: "Advanced"
+    }
   ];
 
   // Expected returns (annual)
@@ -122,6 +253,244 @@ const FinancialPlanningApp = () => {
     return tab?.color || 'blue';
   };
 
+  const handleWeekComplete = (weekNumber: number, badgeName: string) => {
+  setCompletedWeeks(prev => [...prev, weekNumber]);
+  setEarnedBadges(prev => ({ ...prev, [weekNumber]: badgeName }));
+  
+  // Save to localStorage
+  const completedWeeks = JSON.parse(localStorage.getItem('completedWeeks') || '[]');
+  completedWeeks.push(`week${weekNumber}`);
+  localStorage.setItem('completedWeeks', JSON.stringify(completedWeeks));
+  
+  setCurrentWeek(null); // Return to course overview
+  };
+
+  const handleBackToCourse = () => {
+    setCurrentWeek(null);
+  };
+
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case 'Beginner': return 'bg-green-100 text-green-800';
+      case 'Intermediate': return 'bg-yellow-100 text-yellow-800';
+      case 'Advanced': return 'bg-red-100 text-red-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  const getProgressPercentage = () => {
+    return Math.round((completedWeeks.length / educationWeeks.length) * 100);
+  };
+
+  const renderKidsEducationOverview = () => (
+    <div className="max-w-6xl mx-auto">
+      {/* Course Header */}
+      <div className="bg-gradient-to-r from-orange-500 to-pink-500 rounded-2xl p-8 text-white mb-8">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-4xl font-bold mb-2">Financial Wisdom for Teens! 🎓</h1>
+            <p className="text-orange-100 text-xl mb-4">A 10-week journey to master money management</p>
+            <div className="flex items-center space-x-6">
+              <div className="flex items-center">
+                <Users className="h-5 w-5 mr-2" />
+                <span>Ages 13-16</span>
+              </div>
+              <div className="flex items-center">
+                <Calendar className="h-5 w-5 mr-2" />
+                <span>10 Weeks</span>
+              </div>
+              <div className="flex items-center">
+                <Trophy className="h-5 w-5 mr-2" />
+                <span>{completedWeeks.length}/10 Completed</span>
+              </div>
+            </div>
+          </div>
+          <div className="text-8xl">🚀</div>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="mt-6">
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-sm font-medium">Course Progress</span>
+            <span className="text-sm font-medium">{getProgressPercentage()}%</span>
+          </div>
+          <div className="w-full bg-orange-300 bg-opacity-30 rounded-full h-3">
+            <div
+              className="bg-white h-3 rounded-full transition-all duration-500"
+              style={{ width: `${getProgressPercentage()}%` }}
+            ></div>
+          </div>
+        </div>
+
+        {/* Earned Badges */}
+        {Object.keys(earnedBadges).length > 0 && (
+          <div className="mt-6">
+            <h3 className="text-lg font-semibold mb-3">🏆 Your Badges</h3>
+            <div className="flex flex-wrap gap-2">
+              {Object.values(earnedBadges).map((badge, index) => (
+                <div key={index} className="bg-white bg-opacity-20 rounded-lg px-3 py-1 text-sm font-medium">
+                  {badge}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Weeks Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {educationWeeks.map((week) => {
+          const isCompleted = completedWeeks.includes(week.week);
+          const isAvailable = true; // Allow access to all weeks
+          const isLocked = false; // No weeks are locked
+
+          return (
+            <div
+              key={week.week}
+              className={`bg-white rounded-xl shadow-lg overflow-hidden transition-all transform hover:scale-105 ${
+                isLocked ? 'opacity-50' : 'hover:shadow-xl'
+              }`}
+            >
+              {/* Week Header */}
+              <div className={`p-4 ${
+                isCompleted 
+                  ? 'bg-green-500' 
+                  : isAvailable 
+                    ? 'bg-gradient-to-r from-blue-500 to-purple-600' 
+                    : 'bg-gray-400'
+              } text-white`}>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-lg font-bold">Week {week.week}</h3>
+                    <p className="text-sm opacity-90">{week.title}</p>
+                  </div>
+                  <div className="text-3xl">
+                    {isCompleted ? '✅' : isAvailable ? '📚' : '🔒'}
+                  </div>
+                </div>
+              </div>
+
+              {/* Week Content */}
+              <div className="p-6">
+                <p className="text-gray-600 mb-4">{week.description}</p>
+                
+                {/* Week Details */}
+                <div className="space-y-2 mb-4">
+                  <div className="flex items-center text-sm text-gray-500">
+                    <Calendar className="h-4 w-4 mr-2" />
+                    <span>{week.estimatedTime}</span>
+                  </div>
+                  <div className="flex items-center text-sm">
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(week.difficulty)}`}>
+                      {week.difficulty}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Badge Preview */}
+                <div className="bg-gray-50 rounded-lg p-3 mb-4">
+                  <p className="text-sm font-medium text-gray-700 mb-1">Earn This Badge:</p>
+                  <p className="text-lg">{week.badge}</p>
+                </div>
+
+                {/* Action Button */}
+                <button
+                  onClick={() => setCurrentWeek(week.week)}
+                  className={`w-full py-3 px-4 rounded-lg font-semibold transition-all ${
+                    isCompleted
+                      ? 'bg-green-100 text-green-700 hover:bg-green-200'
+                      : 'bg-gradient-to-r from-orange-500 to-pink-500 text-white hover:from-orange-600 hover:to-pink-600'
+                  }`}
+                >
+                  {isCompleted ? (
+                    <div className="flex items-center justify-center">
+                      <Check className="h-4 w-4 mr-2" />
+                      Review Week
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center">
+                      <Play className="h-4 w-4 mr-2" />
+                      Start Week
+                    </div>
+                  )}
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Course Completion */}
+      {completedWeeks.length === educationWeeks.length && (
+        <div className="mt-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl p-8 text-white text-center">
+          <div className="text-6xl mb-4">🎉</div>
+          <h2 className="text-3xl font-bold mb-2">Course Complete!</h2>
+          <p className="text-xl text-yellow-100 mb-4">
+            Congratulations! You've mastered all 10 weeks of financial education!
+          </p>
+          <button className="bg-white text-orange-600 py-3 px-8 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all transform hover:scale-105">
+            Download Certificate 📜
+          </button>
+        </div>
+      )}
+    </div>
+  );
+
+  const renderKidsEducation = () => {
+    if (currentWeek === 1) {
+      return <Week1Component onComplete={handleWeekComplete} onBack={handleBackToCourse} />;
+    }
+    if (currentWeek === 2) {
+      return <Week2Component onComplete={handleWeekComplete} onBack={handleBackToCourse} />;
+    }
+    if (currentWeek === 3) {
+      return <Week3Component onComplete={handleWeekComplete} onBack={handleBackToCourse} />;
+    }
+    if (currentWeek === 4) {
+      return <Week4Component onComplete={handleWeekComplete} onBack={handleBackToCourse} />;
+    }
+    if (currentWeek === 5) {
+      return <Week5Component onComplete={handleWeekComplete} onBack={handleBackToCourse} />;
+    }
+    if (currentWeek === 6) {
+      return <Week6Component onComplete={handleWeekComplete} onBack={handleBackToCourse} />;
+    }
+    if (currentWeek === 7) {
+      return <Week7Component onComplete={handleWeekComplete} onBack={handleBackToCourse} />;
+    }
+    if (currentWeek === 8) {
+      return <Week8Component onComplete={handleWeekComplete} onBack={handleBackToCourse} />;
+    }
+
+    // Future weeks would be handled similarly:
+    // if (currentWeek === 2) return <Week2Component onComplete={handleWeekComplete} onBack={handleBackToCourse} />;
+    // etc.
+    
+    if (currentWeek && currentWeek > 1) {
+      // For weeks not yet implemented
+      return (
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
+            <div className="text-6xl mb-4">🚧</div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Week {currentWeek} Coming Soon!</h2>
+            <p className="text-gray-600 mb-6">
+              We're working hard to bring you this content. Check back soon!
+            </p>
+            <button
+              onClick={handleBackToCourse}
+              className="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 px-8 rounded-xl font-semibold hover:from-blue-600 hover:to-purple-700 transition-all"
+            >
+              Back to Course Overview
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return renderKidsEducationOverview();
+  };
+
+  // Existing render functions (keeping them as they were)
   const renderRetirementPlanning = () => (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* Left Panel - Inputs */}
@@ -320,7 +689,7 @@ const FinancialPlanningApp = () => {
                 label={{ value: 'Years', position: 'insideBottom', offset: -10 }}
               />
               <YAxis 
-                tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
+                tickFormatter={(value) => `${(value / 1000).toFixed(0)}k`}
                 label={{ value: 'Amount ($)', angle: -90, position: 'insideLeft' }}
               />
               <Tooltip 
@@ -586,8 +955,8 @@ const FinancialPlanningApp = () => {
         return renderHomeBuying();
       case 'emergency':
         return renderEmergencyFund();
-      case 'education':
-        return renderComingSoon('Education Planning');
+      case 'kids-education':
+        return renderKidsEducation();
       case 'vacation':
         return renderComingSoon('Vacation Fund Planning');
       default:
@@ -679,35 +1048,39 @@ const FinancialPlanningApp = () => {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-        {/* Page Header */}
-        <div className="mb-8">
-          <div className="flex items-center mb-2">
-            {(() => {
-              const currentTab = planningTabs.find(tab => tab.id === activeTab);
-              const Icon = currentTab?.icon || Target;
-              return <Icon className={`h-8 w-8 text-${currentTab?.color || 'blue'}-600 mr-3`} />;
-            })()}
-            <h1 className="text-3xl font-bold text-gray-900">
-              {planningTabs.find(tab => tab.id === activeTab)?.name || 'Financial Planning'}
-            </h1>
+        {/* Page Header - Only show for non-education tabs or education overview */}
+        {(activeTab !== 'kids-education' || currentWeek === null) && (
+          <div className="mb-8">
+            <div className="flex items-center mb-2">
+              {(() => {
+                const currentTab = planningTabs.find(tab => tab.id === activeTab);
+                const Icon = currentTab?.icon || Target;
+                return <Icon className={`h-8 w-8 text-${currentTab?.color || 'blue'}-600 mr-3`} />;
+              })()}
+              <h1 className="text-3xl font-bold text-gray-900">
+                {planningTabs.find(tab => tab.id === activeTab)?.name || 'Financial Planning'}
+              </h1>
+            </div>
+            <p className="text-gray-600">
+              {activeTab === 'retirement' && "Plan for your retirement with personalized projections and investment strategies"}
+              {activeTab === 'home' && "Calculate how long it will take to save for your dream home"}
+              {activeTab === 'emergency' && "Build a safety net to protect against unexpected expenses"}
+              {activeTab === 'kids-education' && "A comprehensive 10-week financial education course for teens aged 13-16"}
+              {activeTab === 'vacation' && "Plan and save for your next vacation or travel goals"}
+            </p>
           </div>
-          <p className="text-gray-600">
-            {activeTab === 'retirement' && "Plan for your retirement with personalized projections and investment strategies"}
-            {activeTab === 'home' && "Calculate how long it will take to save for your dream home"}
-            {activeTab === 'emergency' && "Build a safety net to protect against unexpected expenses"}
-            {activeTab === 'education' && "Save for education expenses with tax-advantaged strategies"}
-            {activeTab === 'vacation' && "Plan and save for your next vacation or travel goals"}
-          </p>
-        </div>
+        )}
 
         {/* Content Area */}
         {renderContent()}
 
-        {/* Footer */}
-        <div className="mt-12 text-center text-gray-500 text-sm">
-          <p>This tool provides estimates based on historical market averages. Past performance doesn't guarantee future results.</p>
-          <p className="mt-2">© 2025 PlanFinanceToday. Built with ❤️ for your financial success.</p>
-        </div>
+        {/* Footer - Only show for non-education content */}
+        {activeTab !== 'kids-education' && (
+          <div className="mt-12 text-center text-gray-500 text-sm">
+            <p>This tool provides estimates based on historical market averages. Past performance doesn't guarantee future results.</p>
+            <p className="mt-2">© 2025 PlanFinanceToday. Built with ❤️ for your financial success.</p>
+          </div>
+        )}
       </div>
     </div>
   );
