@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Financial Goals Planner (PlanFinanceToday)
+
+A Next.js app for personal financial planning, live at **[planfinancetoday.com](https://www.planfinancetoday.com/)**.
+
+## Features
+
+- **Retirement Goals** — projected savings growth based on stock/bond allocation, with a chart of balance vs. contributions vs. growth
+- **Home Buying** — timeline to save a down payment given home price, savings rate, and target percentage
+- **Emergency Fund** — months needed to build a safety net covering a target number of months of expenses
+- **Kids Financial Course** — a 10-week financial literacy course for teens (ages 13-16), covering topics from "What is Money?" to investing fundamentals. Weeks 1-8 are implemented as standalone components in [app/components/education/](app/components/education/); progress and earned badges are tracked via `localStorage`
+- **Vacation Fund** — planned, not yet implemented
+
+## Tech Stack
+
+- [Next.js 15](https://nextjs.org) (App Router, Turbopack)
+- React 19 + TypeScript
+- Tailwind CSS 4
+- [Recharts](https://recharts.org/) for charts
+- [Lucide React](https://lucide.dev/) for icons
+
+## Project Structure
+
+- [app/page.tsx](app/page.tsx) — main app shell, tab navigation, and the retirement/home/emergency calculators
+- [app/components/education/](app/components/education/) — one component per course week (`Week1Component.tsx`–`Week8Component.tsx`)
+- [app/components/shared/](app/components/shared/) — reusable UI: `Badge`, `LessonComponent`, `ProgressBar`, `QuizEngine`
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The repo is connected to [Vercel](https://vercel.com), which auto-deploys to [planfinancetoday.com](https://www.planfinancetoday.com/) on every push to `main`. No manual deploy step is needed.
