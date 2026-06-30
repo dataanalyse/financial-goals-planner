@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { BookOpen, Check, Star, ArrowRight, ArrowLeft, RotateCcw, X, Award, Calendar, Users, Shield, AlertTriangle, Smartphone } from 'lucide-react';
+import { BookOpen, Check, Star, ArrowRight, ArrowLeft, RotateCcw, X, Award, Calendar, Users, Shield, Smartphone } from 'lucide-react';
 import Badge from '../shared/Badge';
 import ProgressBar from '../shared/ProgressBar';
 import QuizEngine, { QuizQuestion } from '../shared/QuizEngine';
