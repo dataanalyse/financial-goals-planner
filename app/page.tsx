@@ -11,6 +11,8 @@ import Week5Component from './components/education/Week5Component';
 import Week6Component from './components/education/Week6Component';
 import Week7Component from './components/education/Week7Component';
 import Week8Component from './components/education/Week8Component';
+import Week9Component from './components/education/Week9Component';
+import Week10Component from './components/education/Week10Component';
 
 
 const FinancialPlanningApp = () => {
@@ -21,9 +23,11 @@ const FinancialPlanningApp = () => {
 const [currentWeek, setCurrentWeek] = useState<number | null>(null);
 useEffect(() => {
   const completedWeeks = JSON.parse(localStorage.getItem('completedWeeks') || '[]');
-  if (completedWeeks.includes('week8')) {
+  if (completedWeeks.includes('week9')) {
+    setCurrentWeek(10);
+  } else if (completedWeeks.includes('week8')) {
     setCurrentWeek(9);
-  }  
+  }
     else if (completedWeeks.includes('week7')) {
     setCurrentWeek(8);
   } else if (completedWeeks.includes('week6')) {
@@ -460,6 +464,12 @@ useEffect(() => {
     }
     if (currentWeek === 8) {
       return <Week8Component onComplete={handleWeekComplete} onBack={handleBackToCourse} />;
+    }
+    if (currentWeek === 9) {
+      return <Week9Component onComplete={handleWeekComplete} onBack={handleBackToCourse} />;
+    }
+    if (currentWeek === 10) {
+      return <Week10Component onComplete={handleWeekComplete} onBack={handleBackToCourse} />;
     }
 
     // Future weeks would be handled similarly:

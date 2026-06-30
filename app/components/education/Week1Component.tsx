@@ -244,6 +244,17 @@ const Week1Component: React.FC<Week1Props> = ({ onComplete, onBack }) => {
     setTimelineCompleted(false);
   };
 
+  const handleRemoveFromSlot = (index: number) => {
+    const item = moneyTimelineOrder[index];
+    if (!item) return;
+
+    const newOrder = [...moneyTimelineOrder];
+    newOrder[index] = '';
+    setMoneyTimelineOrder(newOrder);
+    setAvailableItems((prev: string[]) => [...prev, item]);
+    setTimelineCompleted(false);
+  };
+
   // Quiz completion handler
   const handleQuizComplete = (score: number, passed: boolean) => {
     setQuizPassed(passed);
@@ -430,14 +441,19 @@ const Week1Component: React.FC<Week1Props> = ({ onComplete, onBack }) => {
           {/* Timeline Slots - Using your working design */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
             {moneyTimelineOrder.map((item, index) => (
-              <div
+              <button
                 key={index}
-                className={`border-2 border-dashed rounded-xl p-4 min-h-[100px] flex flex-col items-center justify-center transition ${
-                  item ? 'border-green-500 bg-green-50' : 'border-gray-300 bg-gray-50'
+                type="button"
+                onClick={() => handleRemoveFromSlot(index)}
+                disabled={!item}
+                title={item ? 'Click to remove this item' : undefined}
+                className={`relative border-2 border-dashed rounded-xl p-4 min-h-[100px] flex flex-col items-center justify-center transition ${
+                  item ? 'border-green-500 bg-green-50 hover:border-red-400 hover:bg-red-50 cursor-pointer group' : 'border-gray-300 bg-gray-50 cursor-default'
                 }`}
               >
                 {item ? (
                   <>
+                    <X className="h-4 w-4 text-gray-400 group-hover:text-red-500 absolute top-1 right-1" />
                     <div className="text-3xl mb-2">{timelineItems[item].emoji}</div>
                     <div className="text-sm font-semibold text-gray-800">{timelineItems[item].name}</div>
                     <div className="text-xs text-gray-500">{timelineItems[item].year}</div>
@@ -445,7 +461,7 @@ const Week1Component: React.FC<Week1Props> = ({ onComplete, onBack }) => {
                 ) : (
                   <span className="text-gray-400 text-sm">Empty</span>
                 )}
-              </div>
+              </button>
             ))}
           </div>
 
@@ -518,6 +534,7 @@ const Week1Component: React.FC<Week1Props> = ({ onComplete, onBack }) => {
             <ul className="text-sm text-blue-700 space-y-1">
               <li>• <strong>Click any item below</strong> to add it to the next empty slot</li>
               <li>• Items will fill from left to right automatically</li>
+              <li>• <strong>Misclicked?</strong> Click the item in the slot to send it back</li>
               <li>• Get all 6 items in the correct historical order to win!</li>
               <li>• Use the Reset button if you want to start over</li>
             </ul>
